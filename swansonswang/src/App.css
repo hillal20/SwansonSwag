@@ -6,4 +6,19 @@
 }
 .wisdom {
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border: 2px solid black;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+img:hover {
+  width: 350px;
+}
+select {
+  margin-bottom: 20px;
+  width: 150px;
+  height: 30px;
 }
