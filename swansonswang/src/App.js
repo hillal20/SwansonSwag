@@ -11,7 +11,8 @@ class App extends Component {
       wisdom: "",
       allQuotes: [],
       pictureClicked: false,
-      wisdomSize: "any"
+      wisdomSize: "any",
+      rating: ""
     };
   }
   componentDidMount() {
@@ -73,16 +74,27 @@ class App extends Component {
         break;
     }
     return splitWords.map(e => {
-      return <div className="wisdom">{e}</div>;
+      return (
+        <div key={e} className="wisdom">
+          {e}
+          <div>
+            Rate:{" "}
+            <input
+              placeholder="enter your rating from 5"
+              name="rating"
+              value={this.state.value}
+              onChange={this.eventHandler}
+            />
+          </div>
+        </div>
+      );
     });
   };
+  eventHandler = e => {
+    this.setState({ rating: e.target.value });
+  };
   render() {
-    if (
-      this.state.allQuotes !== undefined &&
-      this.state.allQuotes[0] !== undefined
-    ) {
-      console.log("k===>", this.state.allQuotes[0].split(" "));
-    }
+    console.log("r", this.state.rating);
 
     return (
       <div className="App">
