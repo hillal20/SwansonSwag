@@ -3,7 +3,7 @@ import "./App.css";
 
 import axios from "axios";
 import SwansonSwag from "./pictures/SwansonSwag.png";
-
+const ip = require("ip");
 class App extends Component {
   constructor(props) {
     super(props);
@@ -90,6 +90,7 @@ class App extends Component {
             <button onClick={() => this.sendingRating(e, this.state.rating)}>
               send
             </button>
+            <h3>total rating :{this.state.rating}</h3>
           </div>
         </div>
       );
@@ -100,6 +101,8 @@ class App extends Component {
   };
 
   sendingRating = (q, r) => {
+    let count = 0;
+
     console.log("rq", q, r);
     const obj = {
       rating: r,
@@ -115,6 +118,7 @@ class App extends Component {
       });
   };
   render() {
+    console.log(ip.address());
     console.log("r", this.state.rating);
 
     return (
