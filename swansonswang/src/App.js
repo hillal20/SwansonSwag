@@ -48,6 +48,7 @@ class App extends Component {
         break;
       case "Any":
         this.setState({ wisdomSize: "any" });
+        break;
       default:
         break;
     }
@@ -90,7 +91,7 @@ class App extends Component {
             <button onClick={() => this.sendingRating(e, this.state.rating)}>
               send
             </button>
-            <h3>total rating :{this.state.rating}</h3>
+            <h3>total rating :{}</h3>
           </div>
         </div>
       );
@@ -101,12 +102,11 @@ class App extends Component {
   };
 
   sendingRating = (q, r) => {
-    let count = 0;
-
     console.log("rq", q, r);
     const obj = {
       rating: r,
-      quote: q
+      quote: q,
+      ip: ip.address()
     };
     const promise = axios.post("http://localhost:4000/ratings", obj);
     promise
