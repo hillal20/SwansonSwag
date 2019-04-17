@@ -13,7 +13,9 @@ class App extends Component {
       pictureClicked: false,
       wisdomSize: "any",
       rating: "",
-      ratedQuote: ""
+      ratedQuote: "",
+      realRating: 0,
+      realQuote: ""
     };
   }
   componentDidMount() {
@@ -77,6 +79,8 @@ class App extends Component {
     }
 
     return splitWords.map(e => {
+      console.log("e ==> ", e);
+
       return (
         <div key={e} className="wisdom">
           {e}
@@ -91,7 +95,10 @@ class App extends Component {
             <button onClick={() => this.sendingRating(e, this.state.rating)}>
               send
             </button>
-            <h3>total rating :{}</h3>
+            <h3>
+              total rating :
+              {e === this.state.realQuote ? this.state.realRating : 0}
+            </h3>
           </div>
         </div>
       );
@@ -111,7 +118,15 @@ class App extends Component {
     const promise = axios.post("http://localhost:4000/ratings", obj);
     promise
       .then(msg => {
-        console.log(msg);
+        msg.data.msg1
+          ? this.setState({
+              realRating: msg.data.msg1.rating,
+              realQuote: msg.data.msg1.quote
+            })
+          : this.setState({
+              realRating: msg.data.msg2.rating,
+              realQuote: msg.data.msg2.quote
+            });
       })
       .catch(err => {
         console.log(err);
