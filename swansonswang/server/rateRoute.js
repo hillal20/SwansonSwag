@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
         count = msg[0].count + 1;
         console.log("count ===> ", count);
         console.log(" rating ===> ", msg[0].rating);
-        const newRating = (msg[0].rating + parseInt(req.body.rating)) / count;
+        const newRating = (msg[0].rating + parseInt(req.body.rating)) / 2;
         console.log("new rating ===> ", newRating);
         let object = {
           rating: newRating,
