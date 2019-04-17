@@ -15,8 +15,12 @@ class App extends Component {
       rating: "",
       ratedQuote: "",
       realRating: 0,
-      realQuote: ""
+      realQuote: "",
+      ratedWisdoms: []
     };
+  }
+  componentWillMount() {
+    this.fetchingRatedWisdoms();
   }
   componentDidMount() {
     this.fetchingWisdom();
@@ -97,7 +101,9 @@ class App extends Component {
             </button>
             <h3>
               total rating :
-              {e === this.state.realQuote ? this.state.realRating : 0}
+              {this.state.ratedWisdoms.map(b => {
+                return b.quote === e ? b.rating : 0;
+              })}
             </h3>
           </div>
         </div>
@@ -131,10 +137,24 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+    this.fetchingRatedWisdoms();
   };
+  fetchingRatedWisdoms = () => {
+    const promise = axios.get("http://localhost:4000/ratings");
+    promise
+      .then(res => {
+        console.log("respond ===>", res.data.msg);
+        this.setState({ ratedWisdoms: res.data.msg });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     console.log(ip.address());
     console.log("r", this.state.rating);
+    console.log("rated wisdom ==> ", this.state.ratedWisdoms);
 
     return (
       <div className="App">
