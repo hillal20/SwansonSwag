@@ -35,7 +35,6 @@ class App extends Component {
       axios.get("https://ron-swanson-quotes.herokuapp.com/v2/quotes/100")
     ]);
 
-    console.log("==> promise", promise);
     this.setState({
       wisdom: promise[0].data[0],
       allQuotes: promise[1].data
@@ -83,8 +82,6 @@ class App extends Component {
     }
 
     return splitWords.map(e => {
-      console.log("e ==> ", e);
-
       return (
         <div key={e} className="wisdom">
           {e}
@@ -116,7 +113,6 @@ class App extends Component {
   };
 
   sendingRating = (q, r) => {
-    console.log("rq", q, r);
     const obj = {
       rating: r,
       quote: q,
@@ -146,7 +142,6 @@ class App extends Component {
     const promise = axios.get("http://localhost:4000/ratings");
     promise
       .then(res => {
-        console.log("respond ===>", res.data.msg);
         this.setState({ ratedWisdoms: res.data.msg });
       })
       .catch(err => {
@@ -155,10 +150,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(ip.address());
-    console.log("r", this.state.rating);
-    console.log("rated wisdom ==> ", this.state.ratedWisdoms);
-
     return (
       <div className="App">
         <h1>+++++ Swanson Wisdom ++++++</h1>
