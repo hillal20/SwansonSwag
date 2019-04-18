@@ -100,6 +100,9 @@ class App extends Component {
             <h3>
               total rating :
               {this.state.ratedWisdoms.map(b => {
+                // if (ip.address() === b.ip && b.quote === e) {
+                //   return <p key={b}>already rated </p>;
+                // }
                 return b.quote === e ? b.rating.toFixed(2) : "";
               })}
             </h3>
