@@ -18,20 +18,16 @@ router.post("/", (req, res) => {
   let obj = {};
 
   obj = { rating: req.body.rating, quote: req.body.quote, ip: req.body.ip };
-
-  console.log(" req ===>", req.body);
   db.find({ quote: req.body.quote })
 
     .then(msg => {
       if (msg.length === 0) {
-        console.log("msg ==> ", msg);
         count++;
         obj.count = count;
         const newDB = new db(obj);
         newDB
           .save()
           .then(msg1 => {
-            console.log("new post ===>", msg1);
             res.json({ msg: "new post", msg1 });
           })
           .catch(err => {
@@ -40,12 +36,8 @@ router.post("/", (req, res) => {
             });
           });
       } else {
-        console.log(msg[0]._id);
         count = msg[0].count + 1;
-        console.log("count ===> ", count);
-        console.log(" rating ===> ", msg[0].rating);
         const newRating = (msg[0].rating + parseInt(req.body.rating)) / 2;
-        console.log("new rating ===> ", newRating);
         let object = {
           rating: newRating,
           quote: req.body.quote,
