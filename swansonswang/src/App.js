@@ -20,10 +20,10 @@ class App extends Component {
     };
   }
   componentWillMount() {
-    this.fetchingRatedWisdoms();
+    this.fetchingWisdom();
   }
   componentDidMount() {
-    this.fetchingWisdom();
+    this.fetchingRatedWisdoms();
   }
   getWisdom = () => {
     this.setState({ pictureClicked: !this.state.pictureClicked });
@@ -99,10 +99,11 @@ class App extends Component {
             <button onClick={() => this.sendingRating(e, this.state.rating)}>
               send
             </button>
+            <p>enter number between 1 & 5</p>
             <h3>
               total rating :
               {this.state.ratedWisdoms.map(b => {
-                return b.quote === e ? b.rating : 0;
+                return b.quote === e ? b.rating.toFixed(2) : "";
               })}
             </h3>
           </div>
@@ -137,7 +138,9 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
-    this.fetchingRatedWisdoms();
+    setTimeout(() => {
+      this.fetchingRatedWisdoms();
+    }, 100);
   };
   fetchingRatedWisdoms = () => {
     const promise = axios.get("http://localhost:4000/ratings");
